@@ -1,12 +1,18 @@
 import { useNavigate } from 'react-router-dom';
+import { apiSlice } from '../../features/api/apiSlice';
+import { useDispatch } from 'react-redux';
 
 const useHandlers = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   const handlePageReload = () => {
-    navigate(`/?page=${1}`);
-    window.location.reload();
+     window.location.reload();
   };
+
+  const handleCashReset = () => {
+    dispatch(apiSlice.util.resetApiState());
+  }
 
   const handleGoBack = () => {
     navigate(-1);
@@ -23,6 +29,7 @@ const useHandlers = () => {
     handlePageReload,
     handleGoBack,
     handleScrollToTop,
+    handleCashReset
   };
 };
 

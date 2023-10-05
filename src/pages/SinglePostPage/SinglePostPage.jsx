@@ -10,7 +10,7 @@ import { useParams } from 'react-router-dom';
 const SinglePostPage = () => {
   const { id } = useParams();
   const { handleGoBack } = useHandlers();
-  const { data: post, isLoading } = useGetPostByIdQuery(id);
+  const { data: post, isLoading, isError } = useGetPostByIdQuery(id);
 
   const pageData = {
     title: '{JSON} Placeholder',
@@ -18,10 +18,18 @@ const SinglePostPage = () => {
   };
 
   if (isLoading) return <Loader />;
+  if (isError) {
+    handleGoBack();
+    return null;
+  }
 
   return (
     <div className={styles.page}>
-      <PageTitle title={pageData.title} subtitle={pageData.subtitle} />
+      <PageTitle
+        title={pageData.title}
+        subtitle={pageData.subtitle}
+        onClick={handleGoBack}
+      />
       <PostCard post={post} variant='fullsize' />
       <PrimaryButton title='Назад' align='end' onClick={handleGoBack} />
     </div>

@@ -5,7 +5,9 @@ const POSTS = 'posts';
 export const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getPosts: builder.query({
-      query: (page) => `${POSTS}?_page=${page}`,
+      query: (page = 1) =>
+        console.log('currentPage >>>', page) || `${POSTS}?_page=${page}`,
+
       serializeQueryArgs: ({ endpointName }) => {
         return endpointName;
       },
@@ -25,9 +27,6 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
         const total = meta.response.headers.get('x-total-count');
         return total;
       },
-      serializeQueryArgs: ({ endpointName }) => {
-        return endpointName;
-      },
     }),
   }),
 });
@@ -36,5 +35,5 @@ export const {
   useGetPostsQuery,
   useGetPostByIdQuery,
   useGetPostsTotalCountQuery,
-  useLazyGetPostsQuery
+  useLazyGetPostsQuery,
 } = extendedApiSlice;

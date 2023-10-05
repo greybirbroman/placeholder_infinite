@@ -3,8 +3,9 @@ import styles from './PostCard.module.css';
 import { POSTS } from '../../router';
 import PrimaryLink from '../PrimaryLink/PrimaryLink';
 
-const PostCard = ({ post, variant }) => {
+const PostCard = ({ post, variant, onLinkClick }) => {
   const { id, title, body } = post;
+
   const FULL_SIZE = 'fullsize';
 
   const dynamicClassRender = () => {
@@ -18,15 +19,16 @@ const PostCard = ({ post, variant }) => {
   return (
     <article className={styles.card}>
       <div className={styles.container}>
-        <span className={styles.card__nubmer}>{id}.</span>
-        <h2 className={styles.card__title}>{title}</h2>
+        <span className={styles.card__nubmer}>{id}</span>
+        <h3 className={styles.card__title}>{title}</h3>
       </div>
       <p className={dynamicClassRender()}>{body}</p>
       {variant !== FULL_SIZE && (
         <PrimaryLink
           to={`/${POSTS}/${id}`}
-          title='Подробнее'
+          title='Просмотр'
           align='end'
+          onClick={onLinkClick}
         />
       )}
     </article>

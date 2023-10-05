@@ -12,7 +12,7 @@ import useHandlers from '../../utils/hooks/useHandlers';
 import usePostsWithInfiniteScroll from '../../utils/hooks/usePostsWithInfiniteScroll';
 
 const MainPage = () => {
-  const { handlePageReload } = useHandlers();
+  const { handlePageReload, handleCashReset } = useHandlers();
   const { posts, isLoading } = usePostsWithInfiniteScroll();
 
   const pageData = {
@@ -22,7 +22,8 @@ const MainPage = () => {
 
   if (isLoading) return <Loader />;
 
-  if (!posts) return <div>no posts</div>;
+  // Или что-то красивое
+  if (!posts) return <PageTitle title='Нет постов'/>;
 
   return (
     <div className={styles.page}>
@@ -31,7 +32,9 @@ const MainPage = () => {
         subtitle={pageData.subtitle}
         onClick={handlePageReload}
       />
-      <PostsList list={posts}>{(post) => <PostCard post={post} />}</PostsList>
+      <PostsList list={posts}>
+        {(post) => <PostCard post={post} onLinkClick={handleCashReset} />}
+      </PostsList>
       <ScrollToTopButton />
     </div>
   );

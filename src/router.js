@@ -3,7 +3,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from 'react-router-dom';
-import { Layout, MainPage, SinglePostPage } from './pages';
+import { Layout, MainPage, SinglePostPage, NotFoundPage } from './pages';
 
 export const POSTS = 'posts';
 
@@ -12,7 +12,7 @@ const router = createBrowserRouter(
     <Route path='/' element={<Layout />}>
       <Route index element={<MainPage />} key='main'/>
       <Route path={`${POSTS}/:id`} element={<SinglePostPage />} />
-      {/* <Route path='*' element={<NotFoundPage />} /> */}
+      <Route path='*' element={<NotFoundPage />} />
     </Route>
   )
 );
